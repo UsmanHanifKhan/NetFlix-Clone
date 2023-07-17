@@ -55,8 +55,9 @@ const Navbar = () => {
         <Link to="/fav"><StyledAiFillHeart /></Link>
         
           {/* <Fav /> */}
-          <Button $transparent>SignIn</Button>
-          <Button>SignUp</Button>
+          <Link to='signin'> <Button $transparent>SignIn</Button></Link>
+          <Link to='signup'><Button>SignUp</Button></Link>
+          <Link to='/*'></Link> 
           </NetflixFav>
       </Div>
     </>

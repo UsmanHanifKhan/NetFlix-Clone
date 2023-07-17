@@ -1,9 +1,22 @@
 *{
   margin: 0;
   padding: 0;
+  ::-webkit-scrollbar{
+    width: 0.5rem;
+  }
+  ::-webkit-scrollbar-thumb{
+    background: red;
+  }
 }
 :root {
   background-color: #000;
 }
-
+body{
+  ::-webkit-scrollbar{
+    background: none;
+  }
+  ::-webkit-scrollbar-thumb{
+    background: none;
+  }
+}
 

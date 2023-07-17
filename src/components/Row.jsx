@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { styled } from "styled-components";
 import { AiOutlineHeart } from "@react-icons/all-files/Ai/AiOutlineHeart";
 import { MdChevronLeft } from  '@react-icons/all-files/Md/MdChevronLeft'
 import { MdChevronRight } from  '@react-icons/all-files/Md/MdChevronRight'
+import { AppContext } from "../../Context";
 
 // Css Styling With Styled Components Start
 
@@ -75,17 +76,18 @@ color: #fff;
   }
 `
 const StyledMdChevronLeft = styled(MdChevronLeft)`
-color: black;
-background: #fff;
+color: #fff;
 border-radius: 5rem;
-opacity: 0;
-opacity: 50%;
+background: transparent;
 position: absolute;
 left: 0;  
 margin-top: 4rem;
 cursor: pointer;
+opacity: 20%;
 z-index: 3;
 &:hover{
+  background: #fff;
+  color: #000;
   opacity: 100;
 }
 @media screen and (max-width: 667px){
@@ -93,16 +95,18 @@ z-index: 3;
 }
 `
 const StyledMdChevronRight = styled(MdChevronRight)`
-color: black;
+color: #fff;
 cursor: pointer;
-background: #fff;
+background: transparent;
 border-radius: 5rem;
-opacity: 50%;
+opacity: 20%;
 position: absolute; 
 transform: translate(-20%,-312%);
 right: 0;
 z-index: 3;
 &:hover{
+  background: #fff;
+  color: #000;
   opacity: 100;
 }
 
@@ -147,21 +151,31 @@ const Row = ({ title , fetchUrl , rowId}) => {
     slider.scrollLeft += slider.offsetWidth //+ 500;
   }
 
+  const { dispatch } =   useContext(AppContext)
+
+  const addtomovie = (data)=>{
+    dispatch({type: 'ADD_TO_MOVIE' , payload: data})
+    console.log(data)
+  }
+
   return (
     <>
-      <h2 style={{ color: "#fff", padding: "4rem 1rem" }}>{title}</h2>
+      <h2 style={{ color: "#fff", padding: "5rem 1rem" , fontFamily:' Arial, Helvetica, sans-serif' }}>{title}</h2>
       <StyledMdChevronLeft onClick={slideLeft} size={40}/>
       <Div id={'slider' + rowId}>
+
+    {/* Map Methode */}
+
       {movies.map((data) => (
         <>
-        <Divs>
+        <Divs key={data.id}>
         <img
           src={`https://image.tmdb.org/t/p/w300/${data?.backdrop_path}`}
           alt={data.orignal_title}
           key={data.id}
         />
        <StyledDiv>
-       <StyledDivIcon><AiOutlineHeart/></StyledDivIcon>
+       <StyledDivIcon><AiOutlineHeart onClick={()=> addtomovie(data)}/></StyledDivIcon>
        <StyledPara>{data.title}</StyledPara>
        </StyledDiv>
         </Divs>
@@ -171,6 +185,8 @@ const Row = ({ title , fetchUrl , rowId}) => {
       <StyledMdChevronRight onClick={slideRight} size={40} />
     </>
   );
+
+
 };
 
 //Its PropTypes
