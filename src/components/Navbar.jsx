@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
-import { AiFillHeart } from "@react-icons/all-files/Ai/AiFillHeart";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AppContext } from "../../Context";
+import LogOut from "../pages/LogOut";
 const Div = styled.div`
   display: flex;
   justify-content: space-between;
@@ -30,33 +32,22 @@ const Button = styled.button`
 const NetflixFav = styled.div`
   display: flex;
 `
-const StyledAiFillHeart = styled(AiFillHeart)`
-  font-size: 2rem;
-  display: flex;
-  flex-direction: row;
-  color: #fff;
-  margin-right: 1rem;
-  cursor: pointer;
-  :hover{
-    transition: 1s;
-    color: red;
-  }
-`
 const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
+
 const Navbar = () => {
+  const {isAuthentication} = useContext(AppContext)
   return (
     <>
       <Div>
       <StyledLink to='/'><h1>NetFlix</h1></StyledLink>
         <NetflixFav>
-        <Link to="/fav"><StyledAiFillHeart /></Link>
-        
-          {/* <Fav /> */}
-          <Link to='signin'> <Button $transparent>SignIn</Button></Link>
-          <Link to='signup'><Button>SignUp</Button></Link>
+          <Link to='/account'> <Button $transparent>Account</Button></Link>
+          {
+            isAuthentication ? <LogOut/> : (<Link to='/signin'><Button>SignIn</Button></Link>)
+          }
           <Link to='/*'></Link> 
           </NetflixFav>
       </Div>

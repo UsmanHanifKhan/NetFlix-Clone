@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 import PropTypes from 'prop-types';
 const AppContext = createContext()
 
@@ -25,6 +25,15 @@ const reducer = (state , action)=>{
 
 const AppProvider = ({children})=>{
 
+    const [isAuthentication , setIsAuthentication] = useState(false)
+
+    const login = ()=>{
+        setIsAuthentication(true)
+    }
+    const logOut = ()=>{
+        setIsAuthentication(false)
+    }
+
     const initialState = {
         items : [],
     }
@@ -33,7 +42,7 @@ const AppProvider = ({children})=>{
 const [state , dispatch] = useReducer(reducer , initialState)
 
     return(
-    <AppContext.Provider value={{cart : state.items , dispatch}}>
+    <AppContext.Provider value={{cart : state.items , dispatch , isAuthentication , login , logOut}}>
         {children}
     </AppContext.Provider>
 )}

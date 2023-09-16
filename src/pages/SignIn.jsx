@@ -2,7 +2,10 @@ import { styled } from "styled-components";
 import bg from "../assets/bg.jpg";
 import { useFormik } from "formik";
 import { signUpSchema } from "../schemas/Index";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AppContext } from "../../Context";
+import { Navigate } from "react-router-dom";
+// import { Link } from "react-router-dom";
 const StyledDiv = styled.div`
   width: 100%;
   img {
@@ -87,11 +90,10 @@ font-family: Arial, Helvetica, sans-serif;
 
 
 const SignIn = () => {
+  const {isAuthentication , login} = useContext(AppContext)
   const initialValues = {
-    name: "",
     email: "",
     password: "",
-    confirm_password: "",
   };
   const { values, errors, handleBlur, touched, handleSubmit, handleChange } =
     useFormik({
@@ -103,9 +105,24 @@ const SignIn = () => {
     });
     const Formik = {values, errors, handleBlur, touched, handleSubmit, handleChange}
     console.log(Formik)
+
+    
+    const handleLogin = ()=>{
+      
+      if(!initialValues.email || !initialValues.password === null){
+        alert(`Thanks 💖 ${Formik.values.name} For SignIn ${login()}`)
+      }
+      else{
+        alert('please enter Enter Email and Password')
+      }
+    }
+
+
   return (
-    <>
-      <StyledDiv>
+
+    <> 
+    {
+      isAuthentication ? <Navigate to={'/account'} /> : (<StyledDiv>
         <img src={bg} alt="bg" />
         <Div>
           <Form onSubmit={handleSubmit}>
@@ -133,13 +150,14 @@ const SignIn = () => {
             {errors.password && touched.password ? (
               <InputPara >{errors.password}</InputPara>
             ) : null}
-            <Button type="submit" onClick={()=> alert(`Thanks 💖 ${Formik.values.name} For SignIn`)}>Sign In</Button>
+            <Button type="submit" onClick={handleLogin}>Sign In</Button>
             <Para>
-              Do not Subscribed to Netflix?  <Link to='/signup'><span>Sign Up</span></Link>
+              {/* Do not Subscribed to Netflix?  <Link to='/signup'><span>Sign Up</span></Link> */}
             </Para>
           </Form>
         </Div>
-      </StyledDiv>
+      </StyledDiv>)
+    }
     </>
   );
 };

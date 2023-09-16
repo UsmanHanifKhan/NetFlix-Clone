@@ -40,7 +40,7 @@ cursor: pointer;
   opacity: 1;
   p{
     opacity: 1;
-  } 
+  }
 }
   `
 const Divs = styled.div`
@@ -129,9 +129,10 @@ const Row = ({ title , fetchUrl , rowId}) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const res = await axios.get(fetchUrl);
+      try {        
+        const res = await axios.get(`${fetchUrl}`);
         setMovies(res.data.results);
+        console.log('data', res.data)
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -157,6 +158,7 @@ const Row = ({ title , fetchUrl , rowId}) => {
     dispatch({type: 'ADD_TO_MOVIE' , payload: data})
     console.log(data)
   }
+
 
   return (
     <>
