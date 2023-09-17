@@ -26,6 +26,7 @@ const reducer = (state , action)=>{
 const AppProvider = ({children})=>{
 
     const [isAuthentication , setIsAuthentication] = useState(false)
+    const [region , setRegion] = useState('')
 
     const login = ()=>{
         setIsAuthentication(true)
@@ -42,9 +43,10 @@ const AppProvider = ({children})=>{
 const [state , dispatch] = useReducer(reducer , initialState)
 
     return(
-    <AppContext.Provider value={{cart : state.items , dispatch , isAuthentication , login , logOut}}>
+    <AppContext.Provider value={{cart : state.items , dispatch , isAuthentication , login , logOut , region , setRegion}}>
         {children}
     </AppContext.Provider>
+    
 )}
 AppProvider.propTypes = {
     children: PropTypes.node.isRequired,

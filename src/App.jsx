@@ -11,7 +11,7 @@ function App() {
     <Router>
     <Navbar />
     <Routes>
-      <Route path='/' element={ <Home />} />
+      <Route path='/' element={<ProtectedRoutes> <Home /></ProtectedRoutes>} />
       <Route path='/signin' element={<SignIn/>} />
       <Route path='/account' element={<ProtectedRoutes><Account/></ProtectedRoutes>} />
     </Routes>

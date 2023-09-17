@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react"
-import requests from "../../Request"
+import { useContext, useEffect, useState } from "react"
 import axios from "axios"
 import { styled } from "styled-components"
+import { AppContext } from "../../Context"
 
 
 
@@ -77,12 +77,15 @@ padding-top: ${(props)=> props.$release ? "1rem" : ""};
 
 
 const Main = () => {
+    const {region} = useContext(AppContext)
     const [movies , setMovies] = useState([])
     const movie = movies[Math.floor(Math.random() * movies.length )]
     useEffect(()=>{
         const fetchData = async()=>{
             try {
-                const res = await axios.get(requests.requestPopular)
+                
+  const API_KEY = '5eae00d436dcadbfea72517ca09fe60a';
+                const res = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_origin_country=${region}&page=4`)
                 setMovies(res.data.results)
                 // setMovies(`https://image.tmdb.org/t/p/original/qWQSnedj0LCUjWNp9fLcMtfgadp.jpg`)
             } catch (error) {
