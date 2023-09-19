@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import bg from "../assets/bg.jpg";
 import { useFormik } from "formik";
 import { signUpSchema } from "../schemas/Index";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../../Context";
 import { Navigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
@@ -118,12 +118,13 @@ const SignIn = () => {
 
   const handleLogin = () => {
     if (!initialValues.email || !initialValues.password  === null) {
-      alert(`Thanks 💖 ${Formik.values.name} For SignIn ${login()}`);
+      alert(`Thanks💖For SignIn ${login()}`);
     } else {
       alert("please enter Enter Email and Password");
     }
   };
-
+  const [isOptionSelected, setIsOptionSelected] = useState(false);
+  const isSubmitDisabled = !isOptionSelected;
   return (
     <>
       {isAuthentication ? (
@@ -169,7 +170,9 @@ const SignIn = () => {
                 name="region"
                 id="region"
                 value={region}
-                onChange={(e) => setRegion(e.target.value)}
+                onChange={(e) => {
+                  setRegion(e.target.value);
+                  setIsOptionSelected(true);} }
               >
               
               <option value="" disabled selected hidden>Select Your Region</option>
@@ -180,7 +183,7 @@ const SignIn = () => {
                 <option value="CN">China</option>
               </Select>
 
-              <Button type="submit" onClick={handleLogin}>
+              <Button type="submit" onClick={handleLogin} disabled={isSubmitDisabled}>
                 Sign In
               </Button>
               <Para></Para>

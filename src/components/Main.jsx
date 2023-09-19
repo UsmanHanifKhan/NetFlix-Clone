@@ -88,6 +88,7 @@ const Main = () => {
                 const res = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_origin_country=${region}&page=4`)
                 setMovies(res.data.results)
                 // setMovies(`https://image.tmdb.org/t/p/original/qWQSnedj0LCUjWNp9fLcMtfgadp.jpg`)
+                // console.log(`main api console ${res.data}`)
             } catch (error) {
                 console.log(error)
             }
@@ -108,7 +109,7 @@ const Main = () => {
     <img src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt={movie?.title} />
     </Div>
       <StyledDivButton>
-        <Para $title>{movie?.title}</Para>
+        <Para $title>{movie?.original_title}</Para>
         <Button>Play</Button>
         <Button $transparent $white $btn>Watched</Button>
         <Para $release >Release: {movie?.release_date}</Para>

@@ -6,6 +6,7 @@ import { AiOutlineHeart } from "@react-icons/all-files/Ai/AiOutlineHeart";
 import { MdChevronLeft } from  '@react-icons/all-files/Md/MdChevronLeft'
 import { MdChevronRight } from  '@react-icons/all-files/Md/MdChevronRight'
 import { AppContext } from "../../Context";
+import { useNavigate } from "react-router-dom";
 
 // Css Styling With Styled Components Start
 
@@ -126,11 +127,11 @@ z-index: 3;
 
 const Row = ({ title , fetchUrl , rowId}) => {
   const [movies, setMovies] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {        
-        const res = await axios.get(`${fetchUrl}`);
+        const randomPage = Math.floor(Math.random() * 10) + 1;
+        const res = await axios.get(`${fetchUrl}&page=${randomPage}`);
         setMovies(res.data.results);
         console.log('data', res.data)
       } catch (error) {
@@ -159,6 +160,7 @@ const Row = ({ title , fetchUrl , rowId}) => {
     console.log(data)
   }
 
+  const navigate = useNavigate()
 
   return (
     <>
@@ -173,12 +175,12 @@ const Row = ({ title , fetchUrl , rowId}) => {
         <Divs key={data.id}>
         <img
           src={`https://image.tmdb.org/t/p/w300/${data?.backdrop_path}`}
-          alt={data.orignal_title}
+          alt={data.title}
           key={data.id}
         />
        <StyledDiv>
        <StyledDivIcon><AiOutlineHeart onClick={()=> addtomovie(data)}/></StyledDivIcon>
-       <StyledPara>{data.title}</StyledPara>
+       <StyledPara onClick={()=> navigate(`/details/${data.id}`)} >{data.original_title}</StyledPara>
        </StyledDiv>
         </Divs>
         </>
