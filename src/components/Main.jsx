@@ -87,8 +87,6 @@ const Main = () => {
   const API_KEY = '5eae00d436dcadbfea72517ca09fe60a';
                 const res = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_origin_country=${region}&page=4`)
                 setMovies(res.data.results)
-                // setMovies(`https://image.tmdb.org/t/p/original/qWQSnedj0LCUjWNp9fLcMtfgadp.jpg`)
-                // console.log(`main api console ${res.data}`)
             } catch (error) {
                 console.log(error)
             }
@@ -120,8 +118,3 @@ const Main = () => {
 }
 
 export default Main
-
-
-
-// https://image.tmdb.org/t/p/original${data[0].poster_path}
-// https://api.themoviedb.org/3/movie/popular?api_key=5eae00d436dcadbfea72517ca09fe60a

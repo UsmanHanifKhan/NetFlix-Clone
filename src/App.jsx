@@ -1,16 +1,19 @@
+import { Suspense, lazy } from 'react'
 import './App.css'
-import Navbar from './components/Navbar'
-import Home from './pages/Home'
-import { BrowserRouter as Router , Routes , Route  } from 'react-router-dom'
-import SignIn from './pages/SignIn'
-import Account from './pages/Account'
 import ProtectedRoutes from './Protectedroute/ProtectedRoutes'
-import Error from './pages/Error'
-import Details from './pages/Details'
+import { BrowserRouter as Router , Routes , Route  } from 'react-router-dom'
+import Spinner from './components/Spinner'
+const Navbar = lazy(()=>import('./components/Navbar'))
+const Home = lazy(()=>import('./pages/Home')) 
+const SignIn = lazy(()=>import('./pages/SignIn')) 
+const Account = lazy(()=>import('./pages/Account')) 
+const Error = lazy(()=>import('./pages/Error')) 
+const Details = lazy(()=>import('./pages/Details')) 
 function App() {
   return (
     <>
     <Router>
+    <Suspense fallback={<Spinner/>}>
     <Navbar />
     <Routes>
       <Route path='/' element={<Home />} />
@@ -19,6 +22,7 @@ function App() {
       <Route path='/details/:id' element={<Details/>} />
       <Route path='/*' element={<Error/>} />
     </Routes>
+    </Suspense>
     </Router>    
     </>
   )

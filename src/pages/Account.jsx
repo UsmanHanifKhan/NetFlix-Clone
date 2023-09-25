@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { AppContext } from "../../Context";
 import { styled } from "styled-components";
 import { RiDeleteBin6Line } from "@react-icons/all-files/Ri/RiDeleteBin6Line";
-// import SignIn from "./SignIn";
 
 const Div = styled.div`
 display: flex;
@@ -46,7 +45,6 @@ const Column = styled.div`
 `
 const StyledRiDeleteBin6Line = styled(RiDeleteBin6Line)`
 color: #fff;
-/* transform: translate(400%,-330%); */
 position: absolute;
 top: 70px;
 left: 8rem;
